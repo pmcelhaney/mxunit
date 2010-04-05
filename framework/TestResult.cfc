@@ -232,15 +232,9 @@
 		<cfset arguments.mode = listLast(arguments.mode) />
 		
 		<cfswitch expression="#arguments.mode#">
-			
-			<cfcase value="html">
-				<cfreturn getHTMLResults() />
-			</cfcase>
-			
 			<cfcase value="rawhtml">
 				<cfreturn getRawHTMLResults() />
 			</cfcase>
-			
 			
 			<cfcase value="xml">
 				<cfreturn getXMLResults() />
@@ -295,6 +289,7 @@
 	--->
 	<cffunction name="getRawHTMLResults" returnType="string" output="false">
 		<cfset var htmlresult = createObject("component", "HtmlTestResult").HTMLTestResult(this) />
+		
 		<cfreturn htmlresult.getRawHtmlResults() />
 	</cffunction>
 	
@@ -365,7 +360,9 @@
 		
 		<cfloop collection="#URLScope#" item="key">
 			<cfif key neq "output">
-				<cfset qs = listAppend(qs,"#lcase(key)#=#URLScope[key]#","&") />
+				<cfif isSimpleValue(arguments.URLScope[key])>
+				  <cfset qs = listAppend(qs,"#lcase(key)#=#URLScope[key]#","&") />
+				</cfif>
 			</cfif>
 		</cfloop>
 		

@@ -163,39 +163,31 @@
 			this.result = runTest();
 			
 			switch(arguments.output){
-				case 'html':
-				  writeoutput(this.result.getHtmlresults());
+			case 'rawhtml':
+					writeoutput(this.result.getRawHtmlresults());
 				break;
 				
-				case 'rawhtml':
-				  writeoutput(this.result.getHtmlresults());
-				break;
-				
-				case 'xml':
+			case 'xml':
 					writeoutput(this.result.getXmlresults());
 				break;
 				
-				case 'junitxml':
+			case 'junitxml':
 					writeoutput(this.result.getJUnitXmlresults());
 				break;
 				
-				case 'json':
+			case 'json':
 					writeoutput(this.result.getJSONResults());
 				break;
 				
-				case 'query':
+			case 'query':
 					dump(this.result.getQueryresults());
 				break;
 				
-				case 'extjs': // TODO deprecated
-				 	writeoutput( this.result.getHtmlresults() );
-				break;		
-				
-				case 'text':
+			case 'text':
 					writeoutput( trim(this.result.getTextresults(this.name)));
 				break;
 				
-				default:
+			default:
 					writeoutput(this.result.getHtmlresults());
 				break;
 			}
@@ -250,7 +242,8 @@
 		
 		<cfif ListFindNoCase("package,private",TestStruct.access)
 			 OR ListFindNoCase("setUp,tearDown,beforeTests,afterTests",TestStruct.name)
-			 OR reFindNoCase("_cffunccfthread",TestStruct.Name)>
+			 OR reFindNoCase("_cffunccfthread",TestStruct.Name)
+			 OR ( (structKeyExists(TestStruct, "test") AND isBoolean(TestStruct.test) AND NOT TestStruct.test))>
 			
 			<cfset isAcceptable = false>
 		</cfif>
@@ -429,5 +422,21 @@
 		</cfif>
 		
 		<cfreturn returnVal />
+	</cffunction> 
+	
+	<cffunction name="expectException">
+		<cfargument name="expectedExceptionType" />
+		<cfargument name="expectedExceptionMessage" />
+		
+		<cfset this.expectedExceptionType = arguments.expectedExceptionType />
+		<cfset this.expectedExceptionMessage = arguments.expectedExceptionMessage />
 	</cffunction>
+	
+	 <cffunction name="orderedExpectation" access="public" hint="Method for mocking. Creates an OrderedExpectation object used for verify the order in which mocks have been called">
+		<cfargument name="mocks" required="true" type="any" hint="One or more mocks in which to verify order" />
+		<cfscript>
+		return createObject("component","mightymock.OrderedExpectation").init(mocks);
+		</cfscript>
+	</cffunction>
+	
 </cfcomponent>
