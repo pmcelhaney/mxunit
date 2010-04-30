@@ -82,6 +82,12 @@
 		
 		// Toggle the active class on the link
 		$('.summary .' + type + ' a', container).toggleClass('active');
+		
+		// Hide suites with no visible tests
+		$('table.results>tbody:not(:has(>tr:visible))', container).parent().prev().andSelf().hide();
+		
+		// Show suites with visible tests
+		$('table.results>tbody:has(>tr:visible)', container).parent().prev().andSelf().show();
 	}
 	
 	function debug(s) {
