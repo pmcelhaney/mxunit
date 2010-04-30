@@ -24,8 +24,6 @@
 		$('.summary a', container)
 			.addClass('active')
 			.click(function() {
-				// Toggle the active class on the link
-				$(this).toggleClass('active');
 				
 				// Find what type of filter we are on
 				type = $(this).parent().attr('className');
@@ -69,12 +67,21 @@
 		
 		// Append the toggle option
 		toggleContext.appendTo($('.summary ul', container));
+		                             
+		
+		
+		toggleTests('passed');
 	});
+	
+
 	
 	function toggleTests( type ) {
 		debug('Toggling: ' + type);
 		
 		$('tr.' + type, container).toggle();
+		
+		// Toggle the active class on the link
+		$('.summary .' + type + ' a', container).toggleClass('active');
 	}
 	
 	function debug(s) {
