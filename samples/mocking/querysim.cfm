@@ -16,9 +16,9 @@ reading querysim info from a profile file; ie, .ini. This was omitted
 because 'i' don't use that.
 --------------------------------------------------------------------->
 
-<cfsetting enablecfoutputonly="yes">
+<cfsetting enablecfoutputonly="false">
 <cfscript>
- _local.queryName = '_q' & createUUId();
+ _local.queryName = '';
  _local.raw = '';
  _local.q = chr(0);
 
@@ -28,7 +28,7 @@ because 'i' don't use that.
 
  else if (thistag.HasEndTag and thistag.ExecutionMode is 'end'){
    _local.raw = trim( Thistag.generatedContent );
-   thistag.generatedContent = '';
+	 thistag.generatedContent = '';
    _local.q = parse(_local.raw);
    setVariable( 'caller.' & _local.queryName, _local.q );
  }

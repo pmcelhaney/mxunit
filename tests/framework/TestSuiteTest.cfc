@@ -37,11 +37,20 @@
   
 	  <cfscript>
      testSuite = createObject("component","mxunit.framework.TestSuite").TestSuite();
-     testSuite.addAll("mxunit.tests.framework.fixture.mocking");
+     testSuite.addAll("mxunit.tests.framework.fixture.Mocking");
 	 testSuite.setMockingFramework("ColdMock");
 	 testSuite.run();
     </cfscript>
       
+	</cffunction>
+	
+	<cffunction name="testAddOneTestMethod">    
+		<cfscript>
+		var testSuite = createObject("component","mxunit.framework.TestSuite").TestSuite();   
+		testSuite.add("mxunit.tests.framework.fixture.fixturetests.SomeRandomTest", "testThree");
+		results = testSuite.run();
+		assertEquals(1, arrayLen(results.results));      
+		</cfscript>   
 	</cffunction>
 
 
