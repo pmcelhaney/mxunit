@@ -46,7 +46,7 @@
 	<target name="package" depends="clean,version" description="--> packages the appropriate files into the deployment-ready zip file. use this for testing; otherwise, use publish">
 		<echo message="building ${zipfile}. basedir is  ${basedir}" />
 		<zip destfile="${zipfile}" casesensitive="false">
-			<zipfileset dir="${basedir}" includes="*.*,ant/,buildprops/,cfeclipse/,doc/,framework/,generator/,images/,PluginDemoTests/,resources/,runner/,samples/,tests/,lib/ant-contrib**" excludes="MXUnitInstallTest.cfc,**/testresults/,**/stats/,**/junithtml/,.project,.deployment,**/unames.properties,tests/tmp/,ftp.listing,**/*.db,**/copysnippets.properties,**/copydictionary**,**/*.bak,buildprops/nightlyversion.properties" prefix="mxunit" casesensitive="false" />
+			<zipfileset dir="${basedir}" includes="*.*,ant/,buildprops/,eclipse/,doc/,framework/,generator/,images/,PluginDemoTests/,resources/,runner/,samples/,tests/,lib/ant-contrib**" excludes=".gitignore,MXUnitInstallTest.cfc,**/testresults/,**/stats/,**/junithtml/,.project,.deployment,**/unames.properties,tests/tmp/,ftp.listing,**/*.db,**/copysnippets.properties,**/copydictionary**,**/*.bak,buildprops/nightlyversion.properties" prefix="mxunit" casesensitive="false" />
 		</zip>
 	</target>
 	
@@ -307,6 +307,7 @@
 		<mxunittask server="${server}" port="${port}" defaultrunner="/mxunit/runner/HttpAntRunner.cfc" outputdir="${output.dir}" verbose="true" testResultsSummary="my.summary" failureproperty="testsfailed">
 			<!-- componentPath is not required, but it results in a much faster test run -->
 			<directory remoteMethod="run" path="${webroot}/mxunit/tests/framework/" packageName="mxunit.tests.framework" componentPath="mxunit.tests.framework" recurse="false" includes="*.cfc" excludes="" />
+			<directory remoteMethod="run" path="${webroot}/mxunit/tests/mightymock/" packageName="mxunit.tests.mightymock" componentPath="mxunit.tests.mightymock" recurse="false" includes="*.cfc" excludes="" />
 			<directory remoteMethod="run" path="${webroot}/mxunit/tests/runner" packageName="mxunit.tests.runner" componentPath="mxunit.tests.runner" recurse="false" includes="*.cfc" excludes="" />
 		</mxunittask>
 

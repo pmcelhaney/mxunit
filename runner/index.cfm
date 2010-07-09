@@ -1,4 +1,5 @@
-<cfsetting showdebugoutput="false" />
+<cfparam name="url.showdebugoutput" default="false">
+<cfsetting showdebugoutput="#url.showdebugoutput#" />
 
 <cfparam name="url.test" default="" />
 <cfparam name="url.componentPath" default="" />
@@ -8,8 +9,7 @@
 
 <cfinclude template="#pathBase#resources/theme/header.cfm" />
 
-<cfset testIsPresent = cgi.path_info is not "" OR url.test is not "" />
-<cfset testToRun = iif(cgi.path_info is "", de(url.test), de(cgi.path_info)) />
+<cfset testToRun = url.test />
 
 <!--- Add the js for the runner --->
 <cfset arrayAppend(scripts, 'runner.js') />
@@ -24,7 +24,7 @@
 				</label>
 			</div>
 		</div>
-		
+
 		<div class="grid_4">
 			<div>
 				<label for="componentPath">
@@ -33,12 +33,12 @@
 				</label>
 			</div>
 		</div>
-		
+
 		<div class="grid_12 align-center">
 			<input type="submit" value="Run Tests" id="btnRun">
 			<input type="reset" value="Clear" id="btnClear" />
 		</div>
-		
+
 		<div class="clear"><!-- clear --></div>
 	</form>
 </cfoutput>
