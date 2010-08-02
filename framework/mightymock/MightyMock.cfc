@@ -136,6 +136,8 @@
 			proxy.variables.MOCKED = MOCKED;
 			proxy._$DUMP = _$DUMP;
 			proxy.variables._$DUMP = _$DUMP;
+			proxy.when = when;
+			proxy.variables.when = when;
 
      return proxy;
 	 }
@@ -156,7 +158,9 @@
  function onMissingMethod(missingMethodName,missingMethodArguments){
    var tempMock = chr(0);
    var temp = '';
-
+   
+   missingMethodArguments = createObject('java','java.util.TreeMap').init(missingMethodArguments);
+   
    if( currentState == 'verifying'){
       verifier.doVerify(tempRule[1], missingMethodName, missingMethodArguments, tempRule[2], registry );
       _$setState('idle');
@@ -215,6 +219,11 @@
 
 
 --------------------------------------------------------------------*/
+  function when(){
+    _$setState('registering');
+    return this;
+  }
+
 
   function returns(){
    var arg = '';
