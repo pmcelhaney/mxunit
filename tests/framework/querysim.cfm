@@ -1,4 +1,3 @@
-
 <!--------------------------------------------------------------------
 Original QuerySim.cfm by hal.helms@TeamAllaire.com
 Update by bill s. - 07.04.2010
